@@ -1,0 +1,26 @@
+[project]
+name = "scriptum-helpers"
+dynamic = ["version"]
+description = "Scriptum utilities and helpers"
+authors = [
+    { name = "Javier Palacios", email = "javier.palacios@scriptum-ai.com" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "google-auth==2.40.2",
+    "parse==1.19.0",
+    "boto3"
+]
+
+[tool.setuptools]
+packages = ["scriptum_helpers"]
+
+[build-system]
+requires = [
+    "setuptools>=61.0",
+    "setuptools-git-versioning>=2.0,<3"
+    ]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools-git-versioning]
+enabled = true
