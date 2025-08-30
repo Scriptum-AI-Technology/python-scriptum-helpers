@@ -23,12 +23,19 @@ def mkdir(key):
     )
 
 def put(key, value, metadata=None, content_type="json"):
-    response = client.put_object(
+    client.put_object(
         Bucket=name,
         Key=key,
         ContentType="application/%s" % content_type,
         Body=json.dumps(value) if content_type == "json" else value,
         Metadata=metadata if metadata else {}
+    )
+
+def upload_fileobj(stream, key, headers):
+    client.upload_fileobj(stream,
+        name,
+        key,
+        headers
     )
 
 def get(key, raw=False):
