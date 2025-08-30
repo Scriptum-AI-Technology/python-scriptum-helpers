@@ -31,11 +31,13 @@ def put(key, value, metadata=None, content_type="json"):
         Metadata=metadata if metadata else {}
     )
 
-def get(key):
+def get(key, raw=False):
     response = client.get_object(
         Bucket=name,
         Key=key
     )
+    if raw:
+        return response
     document = response['Body'].read()
     if response["ContentType"] == "application/json":
         document = json.loads(document)
