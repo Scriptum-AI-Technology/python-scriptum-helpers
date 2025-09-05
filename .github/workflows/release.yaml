@@ -1,0 +1,15 @@
+name: Release package
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  package-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: Scriptum-AI-Technology/Repositories@v1
+        with:
+          pkg-name: scriptum-helpers
+          ssh-key: ${{ secrets.PYPI_DEPLOY_KEY }}
