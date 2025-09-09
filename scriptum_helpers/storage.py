@@ -1,5 +1,6 @@
 from boto3 import session
 from botocore.client import Config
+from botocore.errorfactory import ClientError
 
 import json
 import os
@@ -39,10 +40,14 @@ def upload_fileobj(stream, key, headers):
     )
 
 def get(key, raw=False):
-    response = client.get_object(
-        Bucket=name,
-        Key=key
-    )
+    try:
+        response = client.get_object(
+            Bucket=name,
+            Key=key
+        )
+    except ClientError as ex:
+        print("ERROR: key '%s' not found at bucket %s" % (key, name))
+        return None
     if raw:
         return response
     document = response['Body'].read()
@@ -60,10 +65,14 @@ def list_objects(*prefixes):
     return [item["Key"] for item in response["Contents"]]
 
 def metadata(key, meta=None):
-    head = client.head_object(
-        Bucket=name,
-        Key=key
-    )
+    try:
+        head = client.head_object(
+            Bucket=name,
+            Key=key
+        )
+    except ClientError as ex:
+        print("ERROR: key '%s' not found at bucket %s" % (key, name))
+        return None
     if meta:
         head["Metadata"].update(meta)
         client.copy_object(
