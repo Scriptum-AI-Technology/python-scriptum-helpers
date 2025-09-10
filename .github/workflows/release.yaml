@@ -10,7 +10,7 @@ jobs:
   package-and-publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: Scriptum-AI-Technology/Repositories@v1
+      - uses: Scriptum-AI-Technology/Repositories@testing
         with:
           pkg-name: scriptum-helpers
           ssh-key: ${{ secrets.PYPI_DEPLOY_KEY }}
